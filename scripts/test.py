@@ -27,34 +27,27 @@ import argparse
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--topology', nargs='?', default='alpha_test')
-    parser.add_argument('--test_baselines', nargs='?', default='yes')
+    parser.add_argument('--topology', nargs='?', default='small')
+    parser.add_argument('--test_baselines', nargs='?', default='no')
     parser.add_argument('--agent', nargs='?', default='uniform')
     parser.add_argument('--dataset', nargs='?', default='uniform')
     parser.add_argument('--episode_length', nargs='?', default='128',type=int)
     parser.add_argument('--iterations', nargs='?', default='5',type=int)
-    parser.add_argument('--save_dir', nargs='?', default='../../nara_data/uniform/baselines/')
+    parser.add_argument('--save_dir', nargs='?', default='.')
+    parser.add_argument('--agent_checkpoint', nargs='?', default=None)
     args = parser.parse_args()
 
     #kwargs
-    if args.dataset == 'uniform':
-        request_type = 'SingleResourceRequest'
-    elif args.dataset == 'azure':
-        request_type = 'AzureRequestTest'
-    elif args.dataset == 'alibaba':
-        request_type = 'AlibabaRequestTest'
-
-    model_dir = '../models/{}'.format(args.agent)
+    request_type = 'SingleResourceRequest'
 
     ray.shutdown()
     ray.init(temp_dir='/tmp/uceezs0_ray_tmp_0',ignore_reinit_error=True)
 
-    check_dir_0 = '/home/uceezs0/Code/nara_data/old/sanity_check_0/PPO/PPO_pa_network_0_lr=0.005,sgd_minibatch_size=256,train_batch_size=2048_2021-09-07_11-04-31op68gvuu'
-    check_dir_1 = 'checkpoint_44/checkpoint-44'
-    with open('{}/params.json'.format(check_dir_0),'r') as f:
+    # check_dir_0 = '/home/uceezs0/Code/nara_data/old/sanity_check_0/PPO/PPO_pa_network_0_lr=0.005,sgd_minibatch_size=256,train_batch_size=2048_2021-09-07_11-04-31op68gvuu'
+    # check_dir_1 = 'checkpoint_44/checkpoint-44'
+    config_dir = argss.agent_checkpoint.split('/check')[0]
+    with open('{}/params.json'.format(config_dir),'r') as f:
         config = json.load(f)
-
-    print(config.keys())
 
     #kwargs
     config['env_config']['rnd_seed'] = 10
@@ -68,7 +61,7 @@ if __name__ == '__main__':
     ModelCatalog.register_custom_model("pa_model", ParametricActionsModel)
 
     agent = ppo.PPOTrainer(config=config)
-    agent.restore('{}'.format('{}/{}'.format(check_dir_0,check_dir_1)))
+    agent.restore('{}'.format('{}'.format(args.agent_checkpoint)))
 
     if args.test_baselines == 'yes':
         tetris = PackingAgent('tetris')

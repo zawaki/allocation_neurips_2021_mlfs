@@ -41,8 +41,7 @@ if __name__ == "__main__":
     parser.add_argument("--training_iterations", type=int, default=100)
     parser.add_argument("--checkpoint_frequency", type=int, default=1)
 
-    # parser.add_argument('--topology', nargs='?', type=str, default='alpha')
-    parser.add_argument('--topology', nargs='?', type=str, default='alpha')
+    parser.add_argument('--topology', nargs='?', type=str, default='small')
 
     parser.add_argument('--dataset', nargs='?', type=str, default='uniform')
     parser.add_argument('--episode_length', nargs='?', default='32',type=int)
