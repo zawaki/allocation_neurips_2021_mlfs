@@ -1,0 +1,6 @@
+{
+    "type":"Node",
+    "sub-type":"Resource",
+    "node":16,
+    "mem":16
+}

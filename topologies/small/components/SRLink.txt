@@ -1,0 +1,1 @@
+{"type": "Edge", "sub-type": "SRLink", "ports": 8.0, "length": 2}

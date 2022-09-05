@@ -1,0 +1,10 @@
+{
+    "type":"Request",
+    "sub-type":"SingleResourceRequest",
+    "node":20,
+    "mem":20,
+    "ports":1,
+    "holding_time":30,
+    "allocated":false,
+    "allocation_time":0
+}

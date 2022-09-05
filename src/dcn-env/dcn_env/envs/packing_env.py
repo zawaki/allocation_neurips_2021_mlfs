@@ -622,7 +622,18 @@ class ParametricActionWrapper(gym.Env):
         return obs, rew, done, info
 
 class ParametricActionsModel(TFModelV2):
+    '''
+    This class implements a policy architecture that is compatible with
+    Rllib. It imports a graph neural network model implemented in DGL
+    and uses this within the framework detailed in the RLlib documentation
+    for custom policy models: 
+        
+        https://docs.ray.io/en/latest/rllib/rllib-concepts.html
 
+    As such, arguments and return structure for all methods are the same 
+    as detailed in this documentation and so this should be referenced
+    for any general queries of how this is done.
+    '''
     def __init__(self,
                  obs_space,
                  action_space,
@@ -634,14 +645,7 @@ class ParametricActionsModel(TFModelV2):
                  **kw):
         super(ParametricActionsModel, self).__init__(
             obs_space, action_space, num_outputs, model_config, name, **kw)
-        '''NOTE:
-        Currenty using a FullyConnectedNetwork since that's what is used in the
-        rllib parametric_actions_model example. Doesn't seem to be necessary, 
-        except that using this provides a default value function that seems to
-        work fine. 
-        Could probably just use another keras layer for this, but would then
-        have to write a value function which seems uneccesary.
-        '''
+
         self.save_embeddings = model_config['custom_model_config']['embedding_save_dir']
         self.config = model_config
         self.use_gnn = model_config['custom_model_config']['use_gnn']
@@ -658,7 +662,6 @@ class ParametricActionsModel(TFModelV2):
         self.action_logits_model.add(tf.keras.layers.Dense(1,input_shape=(None,logits_input_dim),name='logits_dense'))
         self.register_variables(self.action_logits_model.variables)
 
-        #Define and register (via a forced pass through) the GNN model
         if self.use_gnn:
             self.gnn = SAGE(agg_type=model_config['custom_model_config']['agg_type'],
                         agg_dim=model_config['custom_model_config']['agg_dim'],
@@ -669,9 +672,7 @@ class ParametricActionsModel(TFModelV2):
             self.dgl_graph = manager.network.to_dgl()
 
         #Define and register the observation embedding model
-        final_obs_shape = (len(self.config['custom_model_config']['features']['node'])+1,)#(true_obs_shape[0],)
-        #no holding-time
-        # final_obs_shape = (len(self.config['custom_model_config']['features']['node']),)
+        final_obs_shape = (len(self.config['custom_model_config']['features']['node'])+1,)
 
         self.action_embed_model = FullyConnectedNetwork(
             Box(-1, 1, shape=final_obs_shape), 

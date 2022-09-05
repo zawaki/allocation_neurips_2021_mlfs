@@ -1,0 +1,6 @@
+{
+    "type":"Node",
+    "sub-type":"Rack",
+    "node":0,
+    "mem":0
+}
