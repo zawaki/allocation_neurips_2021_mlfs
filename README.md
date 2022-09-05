@@ -1,6 +1,6 @@
 # Resource Allocation in Disaggregated Data Centre Systems with Reinforcement Learning (Code)
 
-This repository contains the learning and simulation models used to train and test the deep reinforcement learning based network-aware resource allocator presented in the paper (https://arxiv.org/abs/2106.02412) of the same title, which was presented in the Machine Leraning for Systems Conference at NeurIPS 2021.
+This repository contains the learning and simulation models used to train and test the deep reinforcement learning based network-aware resource allocator presented in the paper (https://arxiv.org/abs/2106.02412) of the same title, which was presented in the Machine Learning for Systems Conference at NeurIPS 2021.
 
 This README will detail how the code is run in order to produce the same training and testing as in the paper on a given topology, where a small and large topology used in the presented work are also provided.
 
