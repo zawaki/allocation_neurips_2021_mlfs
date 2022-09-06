@@ -16,9 +16,7 @@ from gym.spaces import Box, Dict, Discrete
 import numpy as np
 import random
 
-import packing_test
-
-from dcn_env.envs.packing_env import PackingEnv, ParametricActionWrapper, ParametricActionsModel
+from dc_environment.envs.packing_env import PackingEnv, ParametricActionWrapper, ParametricActionsModel
 
 import os
 os.environ['USE_OFFICIAL_TFDLPACK'] = "true"
@@ -27,7 +25,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 os.environ["CUDA_VISIBLE_DEVICES"]="2,3"
 
-from gcn import *
+from gnn import *
 
 tf1, tf, tfv = try_import_tf()
 tf.get_logger().setLevel('INFO')

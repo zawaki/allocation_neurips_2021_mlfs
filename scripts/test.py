@@ -2,9 +2,9 @@ import ray
 import ray.rllib.agents.ppo as ppo
 from ray.tune.registry import register_env
 
-import packing_test
+
 from ray.rllib.models import ModelCatalog
-from dcn_env.envs.packing_env import PackingEnv, ParametricActionWrapper, ParametricActionsModel#, NonParametricActionsModel
+from dc_environment.envs.packing_env import PackingEnv, ParametricActionWrapper, ParametricActionsModel#, NonParametricActionsModel
 import os
 
 import gym
@@ -14,7 +14,6 @@ import json
 import numpy as np
 
 from rollout import rollout, PackingAgent
-# from plots import acceptance_ratio, util, failure, acceptance_load, ratio
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
@@ -46,8 +45,6 @@ if __name__ == '__main__':
     ray.shutdown()
     ray.init(temp_dir='/tmp/uceezs0_ray_tmp_0',ignore_reinit_error=True)
 
-    # check_dir_0 = '/home/uceezs0/Code/nara_data/old/sanity_check_0/PPO/PPO_pa_network_0_lr=0.005,sgd_minibatch_size=256,train_batch_size=2048_2021-09-07_11-04-31op68gvuu'
-    # check_dir_1 = 'checkpoint_44/checkpoint-44'
     config_dir = args.agent_checkpoint.split('/check')[0]
    
     with open('{}/params.json'.format(config_dir),'r') as f:

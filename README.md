@@ -87,4 +87,5 @@ During a training run, the rollout will generate the following data (where the `
 #### actions_#.csv
 * each row shows the following information about the actions taken during the test episode for both successful and unsuccessful requests (listed from left column to right):
     * action (integer ID of the server - corresponding to the DGL topology used during runtime - chosen)
-    * request_id (integer ID of the request for which this
+    * request_id (integer ID of the request for which this action was taken.)
+
