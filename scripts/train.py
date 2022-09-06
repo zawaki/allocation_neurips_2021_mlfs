@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     ray.shutdown()
-    ray.init(temp_dir='/tmp/uceezs0_ray_tmp')
+    ray.init()
 
     register_env("pa_network", lambda config: ParametricActionWrapper(config))
     ModelCatalog.register_custom_model("pa_model", ParametricActionsModel)
