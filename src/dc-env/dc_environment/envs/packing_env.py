@@ -29,9 +29,9 @@ import random as rnd
 import numpy as np
 from itertools import islice
 
-from NetworkSimulator import *
+from dc_network import *
 
-from gcn import *
+from gnn import *
 
 
 NUM_FEATURES = 2

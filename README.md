@@ -7,13 +7,13 @@ This README will detail how the code is run in order to produce the same trainin
 ## Installing the relevant modules
 
 
-In the same directory as this document, simply run:
+In the same directory as this document, simply run (in a python console):
 
-```bash
-./install_modules.sh
+```python
+python install.py
 ```
 
-
+NOTE: this code is written for a Tensorflow backend. Both RLlib and DGL can use either Tensorflow or Pytorch as the backend, so it must be ensured that this is explicitly set to avoid run-time issues.
 ## Training
 
 In the ```./scripts``` directory, simply run:
@@ -87,5 +87,4 @@ During a training run, the rollout will generate the following data (where the `
 #### actions_#.csv
 * each row shows the following information about the actions taken during the test episode for both successful and unsuccessful requests (listed from left column to right):
     * action (integer ID of the server - corresponding to the DGL topology used during runtime - chosen)
-    * request_id (integer ID of the request for which this action was taken.)
-
+    * request_id (integer ID of the request for which this

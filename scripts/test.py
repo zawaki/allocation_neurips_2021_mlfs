@@ -14,7 +14,7 @@ import json
 import numpy as np
 
 from rollout import rollout, PackingAgent
-from plots import acceptance_ratio, util, failure, acceptance_load, ratio
+# from plots import acceptance_ratio, util, failure, acceptance_load, ratio
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
@@ -40,12 +40,16 @@ if __name__ == '__main__':
     #kwargs
     request_type = 'SingleResourceRequest'
 
+    # /home/uceezs0/Code/mlfs_github_tests/train_sanity_check/PPO/PPO_pa_network_0_lr=0.005,sgd_minibatch_size=256,train_batch_size=2048_2022-09-06_10-47-21_1ayx_hp/checkpoint_1/checkpoint-1
+    # ../../mlfs_github_tests
+
     ray.shutdown()
     ray.init(temp_dir='/tmp/uceezs0_ray_tmp_0',ignore_reinit_error=True)
 
     # check_dir_0 = '/home/uceezs0/Code/nara_data/old/sanity_check_0/PPO/PPO_pa_network_0_lr=0.005,sgd_minibatch_size=256,train_batch_size=2048_2021-09-07_11-04-31op68gvuu'
     # check_dir_1 = 'checkpoint_44/checkpoint-44'
-    config_dir = argss.agent_checkpoint.split('/check')[0]
+    config_dir = args.agent_checkpoint.split('/check')[0]
+   
     with open('{}/params.json'.format(config_dir),'r') as f:
         config = json.load(f)
 
@@ -71,7 +75,7 @@ if __name__ == '__main__':
 
     config['env_config']['lb_route_weighting'] = False
     env = ParametricActionWrapper(env_config=config['env_config'])
-    rollout(agent,env,'{}/agent/{}_{}_{}'.format(args.save_dir,sr_channel,ra_channel,ac_channel),rl=True,iterations=args.iterations)
+    rollout(agent,env,'{}/agent'.format(args.save_dir),rl=True,iterations=args.iterations)
 
     if args.test_baselines == 'yes':
         

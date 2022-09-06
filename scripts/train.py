@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     parser.add_argument('--dataset', nargs='?', type=str, default='uniform')
     parser.add_argument('--episode_length', nargs='?', default='32',type=int)
-    parser.add_argument('--save_dir', nargs='?', type=str, default='.')
+    parser.add_argument('--save_dir', nargs='?', type=str, default='../../mlfs_github_tests')
 
     parser.add_argument("--number_of_trains", type=int, default=1)
     args = parser.parse_args()
@@ -88,7 +88,7 @@ if __name__ == "__main__":
                     'use_gnn':True,
                     'agg_type':'MeanPool2',
                     'agg_dim':16,
-                    'num_mp_stages':4,
+                    'num_mp_stages':3,
                     'obs_emb_dim':8,
                     'num_features':NUM_FEATURES,
                     'embedding_save_dir':None,
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     }
     print('args: {}'.format(args))
     results = tune.run(args.run, 
-                        local_dir='{}/{}_{}_{}'.format(args.save_dir,sr_channel,ra_channel,ac_channel),
+                        local_dir='{}/train_sanity_check'.format(args.save_dir),
                         checkpoint_freq=args.checkpoint_frequency,
                         stop=stop,
                         config=config,
