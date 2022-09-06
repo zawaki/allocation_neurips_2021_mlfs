@@ -6,6 +6,11 @@ This README will detail how the code is run in order to produce the same trainin
 
 ## Installing the relevant modules
 
+To install the various requirements, in the same directory as this document run the command:
+
+```bash
+pip install -r requirements.txt
+```
 
 In the same directory as this document, simply run (in a python console):
 
